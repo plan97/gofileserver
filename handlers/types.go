@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-// DirFiles is used to list the files in a directory.
+// DirFiles is used to list the directories/files in a directory.
 type DirFiles struct {
 	Dir            []string         `json:"dir"`
 	FileDescriptor []FileDescriptor `json:"file_descriptor,omitempty"`

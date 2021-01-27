@@ -1,4 +1,4 @@
-package server
+package gofileserver
 
 import (
 	"net/http"
@@ -10,7 +10,7 @@ import (
 	"github.com/plan97/gofileserver/handlers"
 )
 
-//go:generate go-bindata -pkg server -prefix dist/go-file-server dist/...
+//go:generate go-bindata -pkg gofileserver -prefix dist/go-file-server dist/...
 
 // Serve using the provided configuration.
 func Serve(c *config.Config) (err error) {

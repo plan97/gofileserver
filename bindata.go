@@ -9,7 +9,7 @@
 // dist/go-file-server/styles.6ff8fa8e1a0ef2425316.css
 // DO NOT EDIT!
 
-package server
+package gofileserver
 
 import (
 	"bytes"

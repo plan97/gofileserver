@@ -18,3 +18,8 @@ type FileDescriptor struct {
 	Name    string    `json:"name,omitempty"`
 	Size    int64     `json:"size,omitempty"`
 }
+
+// URIDir binds the directory from the URI.
+type URIDir struct {
+	Dir string `uri:"dir"`
+}

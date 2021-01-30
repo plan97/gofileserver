@@ -10,8 +10,8 @@ import (
 
 // Config contains the input for the fileserver.
 type Config struct {
-	// Dir to serve.
-	Dir string
+	// BaseDir to serve.
+	BaseDir string
 
 	// Addr to listen.
 	Addr string
@@ -47,14 +47,14 @@ func (c *Config) Fetch() error {
 		return err
 	}
 
-	c.Dir = config.GetString("dir")
+	c.BaseDir = config.GetString("dir")
 	c.Addr = config.GetString("addr")
 	c.HTTPS = config.GetBool("https")
 	c.SSLCertFile = config.GetString("cert")
 	c.SSLKeyFile = config.GetString("key")
 	c.AllowCors = config.GetBool("cors")
 
-	c.Dir, err = filepath.Abs(c.Dir)
+	c.BaseDir, err = filepath.Abs(c.BaseDir)
 	return err
 }
 

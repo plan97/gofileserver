@@ -11,7 +11,7 @@ import (
 )
 
 // ListDirFiles provides a gin.HandlerFunc that describes the directories/files in a directory.
-func ListDirFiles(dir string) gin.HandlerFunc {
+func ListDirFiles(baseDir string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var req DirFiles
 		if err := c.BindJSON(&req); err != nil {
@@ -19,10 +19,10 @@ func ListDirFiles(dir string) gin.HandlerFunc {
 			return
 		}
 
-		reqDir := filepath.Join(append([]string{dir}, req.Dir...)...)
-		if !strings.HasPrefix(reqDir, dir) {
+		reqDir := filepath.Join(append([]string{baseDir}, req.Dir...)...)
+		if !strings.HasPrefix(reqDir, baseDir) {
 			c.AbortWithError(http.StatusBadRequest,
-				fmt.Errorf("directory '%s' is not permitted", req.Dir))
+				fmt.Errorf("access to directory '%s' is not allowed", reqDir))
 			return
 		}
 

@@ -14,6 +14,8 @@ import (
 
 // Serve using the provided configuration.
 func Serve(c *config.Config) (err error) {
+	gin.SetMode(gin.ReleaseMode)
+
 	router := gin.Default()
 	if c.AllowCors {
 		router.Use(cors.Default())

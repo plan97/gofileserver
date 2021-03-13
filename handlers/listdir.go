@@ -43,6 +43,5 @@ func ListDirFiles(baseDir string) gin.HandlerFunc {
 			}
 		}
 		c.JSON(http.StatusOK, req)
-		return
 	}
 }

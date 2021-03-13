@@ -29,8 +29,8 @@ type Config struct {
 	AllowCors bool
 }
 
-// Fetch configuration.
-func (c *Config) Fetch() error {
+// Fetch configuration from flags.
+func (conf *Config) Fetch() (err error) {
 	config := viper.New()
 
 	flag.String("dir", "", "Directory to serve")
@@ -42,20 +42,20 @@ func (c *Config) Fetch() error {
 
 	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
 	pflag.Parse()
-	err := config.BindPFlags(pflag.CommandLine)
+	err = config.BindPFlags(pflag.CommandLine)
 	if err != nil {
-		return err
+		return
 	}
 
-	c.BaseDir = config.GetString("dir")
-	c.Addr = config.GetString("addr")
-	c.HTTPS = config.GetBool("https")
-	c.SSLCertFile = config.GetString("cert")
-	c.SSLKeyFile = config.GetString("key")
-	c.AllowCors = config.GetBool("cors")
+	conf.BaseDir = config.GetString("dir")
+	conf.Addr = config.GetString("addr")
+	conf.HTTPS = config.GetBool("https")
+	conf.SSLCertFile = config.GetString("cert")
+	conf.SSLKeyFile = config.GetString("key")
+	conf.AllowCors = config.GetBool("cors")
 
-	c.BaseDir, err = filepath.Abs(c.BaseDir)
-	return err
+	conf.BaseDir, err = filepath.Abs(conf.BaseDir)
+	return
 }
 
 // New returns a Config instance.

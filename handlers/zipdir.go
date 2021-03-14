@@ -46,24 +46,31 @@ func ZipDir(baseDir string) gin.HandlerFunc {
 			fmt.Sprintf("attachment; filename=%s", strconv.Quote(fmt.Sprintf("%s.zip", filename))))
 		c.Header("Content-Type", c.Writer.Header().Get("Content-Type"))
 
-		// Walk the directory recursively and add all files to ZIP.
 		zipWriter := zip.NewWriter(c.Writer)
+		defer zipWriter.Close()
+
+		// Walk the directory recursively and add all files to ZIP.
 		err := filepath.Walk(path, func(filePath string, info os.FileInfo, err error) error {
-			if info.IsDir() {
-				return nil
-			}
 			if err != nil {
 				return err
 			}
+
+			if info.IsDir() {
+				return nil
+			}
+
 			relPath := strings.TrimPrefix(filepath.ToSlash(strings.TrimPrefix(filePath, path)), "/")
+
 			zipFile, err := zipWriter.Create(relPath)
 			if err != nil {
 				return err
 			}
+
 			fsFile, err := os.Open(filePath)
 			if err != nil {
 				return err
 			}
+
 			_, err = io.Copy(zipFile, fsFile)
 			if err != nil {
 				return err
@@ -74,13 +81,5 @@ func ZipDir(baseDir string) gin.HandlerFunc {
 			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
-
-		err = zipWriter.Close()
-		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
-			return
-		}
-
-		return
 	}
 }

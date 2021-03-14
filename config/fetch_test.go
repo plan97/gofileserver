@@ -8,7 +8,6 @@ func TestConfig_Fetch(t *testing.T) {
 		conf    *Config
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
 			name:    "test 1",
 			conf:    New(),

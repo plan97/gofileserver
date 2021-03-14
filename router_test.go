@@ -29,7 +29,6 @@ func TestSetup(t *testing.T) {
 		testFunc func(*gin.Engine) error
 		wantErr  bool
 	}{
-		// TODO: Add test cases.
 		{
 			name: "test 1",
 			args: func() args {

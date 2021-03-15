@@ -15,20 +15,26 @@ func ListDirFiles(baseDir string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var req DirFiles
 		if err := c.BindJSON(&req); err != nil {
-			c.AbortWithError(http.StatusBadRequest, err)
+			if e := c.AbortWithError(http.StatusBadRequest, err); e.Err == nil {
+				fmt.Println(err)
+			}
 			return
 		}
 
 		reqDir := filepath.Join(append([]string{baseDir}, req.Dir...)...)
 		if !strings.HasPrefix(reqDir, baseDir) {
-			c.AbortWithError(http.StatusBadRequest,
-				fmt.Errorf("access to directory '%s' is not allowed", reqDir))
+			er := fmt.Errorf("access to directory '%s' is not allowed", reqDir)
+			if e := c.AbortWithError(http.StatusBadRequest, er); e.Err == nil {
+				fmt.Println(er)
+			}
 			return
 		}
 
 		fileInfo, err := ioutil.ReadDir(reqDir)
 		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
+			if e := c.AbortWithError(http.StatusInternalServerError, err); e.Err == nil {
+				fmt.Println(err)
+			}
 			return
 		}
 

@@ -17,7 +17,9 @@ var errAssertionFailed = errors.New("assertion failed")
 func TestSetup(t *testing.T) {
 
 	conf := config.New()
-	conf.Fetch()
+	if err := conf.Fetch(); err != nil {
+		t.Errorf("conf.Fetch() error = %v", err)
+	}
 	conf.AllowCors = true
 
 	type args struct {

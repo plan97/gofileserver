@@ -2,6 +2,7 @@ package gofileserver
 
 import (
 	"embed"
+	"fmt"
 	"io"
 	"io/fs"
 	"net/http"
@@ -51,7 +52,12 @@ func Setup(conf *config.Config) (router *gin.Engine, err error) {
 			}
 
 			c.Status(http.StatusOK)
-			c.Writer.Write(page)
+			_, err = c.Writer.Write(page)
+			if err != nil {
+				if e := c.Error(err); e.Err == nil {
+					fmt.Println(err)
+				}
+			}
 			c.Abort()
 			return
 		}

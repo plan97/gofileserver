@@ -20,8 +20,7 @@ func ZipDir(baseDir string) gin.HandlerFunc {
 		// Bind Dir from URI.
 		var uri URIDir
 		if err := c.ShouldBindUri(&uri); err != nil {
-			e := c.AbortWithError(http.StatusBadRequest, err)
-			if e.Err == nil {
+			if e := c.AbortWithError(http.StatusBadRequest, err); e.Err == nil {
 				fmt.Println(err)
 			}
 			return
@@ -33,9 +32,7 @@ func ZipDir(baseDir string) gin.HandlerFunc {
 		// Verify validity of the path w.r.t. base directory.
 		if !strings.HasPrefix(path, baseDir) {
 			er := fmt.Errorf("directory '%s' is not permitted", uri.Dir)
-			e := c.AbortWithError(http.StatusBadRequest,
-				er)
-			if e.Err == nil {
+			if e := c.AbortWithError(http.StatusBadRequest, er); e.Err == nil {
 				fmt.Println(er)
 			}
 			return
@@ -85,8 +82,7 @@ func ZipDir(baseDir string) gin.HandlerFunc {
 			return nil
 		})
 		if err != nil {
-			e := c.AbortWithError(http.StatusInternalServerError, err)
-			if e.Err == nil {
+			if e := c.AbortWithError(http.StatusInternalServerError, err); e.Err == nil {
 				fmt.Println(err)
 			}
 			return

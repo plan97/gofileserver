@@ -50,13 +50,11 @@ func Setup(conf *config.Config) (router *gin.Engine, err error) {
 				return
 			}
 
+			c.Status(http.StatusOK)
 			_, err = c.Writer.Write(page)
 			if err != nil {
 				c.Status(http.StatusInternalServerError)
-				c.Abort()
-				return
 			}
-			c.Status(http.StatusOK)
 			c.Abort()
 			return
 		}

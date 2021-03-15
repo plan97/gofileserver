@@ -35,8 +35,7 @@ func TestListDirFiles(t *testing.T) {
 			}()},
 			testFunc: func(fn gin.HandlerFunc) error {
 				gin.SetMode(gin.ReleaseMode)
-				router := gin.New()
-				router.Use(gin.Recovery())
+				router := gin.Default()
 				api := router.Group("/api")
 				api.POST("list_dir_files", fn)
 
@@ -64,8 +63,7 @@ func TestListDirFiles(t *testing.T) {
 			}()},
 			testFunc: func(fn gin.HandlerFunc) error {
 				gin.SetMode(gin.ReleaseMode)
-				router := gin.New()
-				router.Use(gin.Recovery())
+				router := gin.Default()
 				api := router.Group("/api")
 				api.POST("list_dir_files", fn)
 
@@ -93,8 +91,7 @@ func TestListDirFiles(t *testing.T) {
 			}()},
 			testFunc: func(fn gin.HandlerFunc) error {
 				gin.SetMode(gin.ReleaseMode)
-				router := gin.New()
-				router.Use(gin.Recovery())
+				router := gin.Default()
 				api := router.Group("/api")
 				api.POST("list_dir_files", fn)
 
@@ -122,8 +119,7 @@ func TestListDirFiles(t *testing.T) {
 			}()},
 			testFunc: func(fn gin.HandlerFunc) error {
 				gin.SetMode(gin.ReleaseMode)
-				router := gin.New()
-				router.Use(gin.Recovery())
+				router := gin.Default()
 				api := router.Group("/api")
 				api.POST("list_dir_files", fn)
 

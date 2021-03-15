@@ -31,8 +31,7 @@ func TestZipDir(t *testing.T) {
 			}()},
 			testFunc: func(fn gin.HandlerFunc) error {
 				gin.SetMode(gin.ReleaseMode)
-				router := gin.New()
-				router.Use(gin.Recovery())
+				router := gin.Default()
 				zipDir := router.Group("/dir_zip")
 				zipDir.GET("*dir", fn)
 
@@ -58,8 +57,7 @@ func TestZipDir(t *testing.T) {
 			}()},
 			testFunc: func(fn gin.HandlerFunc) error {
 				gin.SetMode(gin.ReleaseMode)
-				router := gin.New()
-				router.Use(gin.Recovery())
+				router := gin.Default()
 				zipDir := router.Group("/dir_zip")
 				zipDir.GET("*dir", fn)
 
@@ -85,8 +83,7 @@ func TestZipDir(t *testing.T) {
 			}()},
 			testFunc: func(fn gin.HandlerFunc) error {
 				gin.SetMode(gin.ReleaseMode)
-				router := gin.New()
-				router.Use(gin.Recovery())
+				router := gin.Default()
 				zipDir := router.Group("/dir_zip")
 				zipDir.GET("*dir", fn)
 
@@ -112,8 +109,7 @@ func TestZipDir(t *testing.T) {
 			}()},
 			testFunc: func(fn gin.HandlerFunc) error {
 				gin.SetMode(gin.ReleaseMode)
-				router := gin.New()
-				router.Use(gin.Recovery())
+				router := gin.Default()
 				zipDir := router.Group("/dir_zip")
 				zipDir.GET("*dir", fn)
 

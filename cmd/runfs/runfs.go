@@ -7,7 +7,8 @@ import (
 
 func runfs() error {
 	conf := config.New()
-	if err := conf.Fetch(); err != nil {
+	err := conf.Fetch()
+	if err != nil {
 		return err
 	}
 

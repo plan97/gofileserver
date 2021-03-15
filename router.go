@@ -53,6 +53,7 @@ func Setup(conf *config.Config) (router *gin.Engine, err error) {
 			c.Status(http.StatusOK)
 			c.Writer.Write(page)
 			c.Abort()
+			return
 		}
 
 		if _, err = subContent.Open(reqPath); err != nil {

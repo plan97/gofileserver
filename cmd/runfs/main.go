@@ -1,12 +1,10 @@
 package main
 
 import (
+	"context"
 	"fmt"
 )
 
 func main() {
-	err := runfs()
-	if err != nil {
-		fmt.Println(err)
-	}
+	fmt.Println(runfs(context.Background()))
 }

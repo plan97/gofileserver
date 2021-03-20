@@ -1,11 +1,14 @@
 package main
 
 import (
+	"context"
+	"net/http"
+
 	server "github.com/plan97/gofileserver"
 	"github.com/plan97/gofileserver/config"
 )
 
-func runfs() error {
+func runfs(ctx context.Context) error {
 	conf := config.New()
 	if err := conf.Fetch(); err != nil {
 		return err
@@ -16,10 +19,25 @@ func runfs() error {
 		return err
 	}
 
-	if conf.HTTPS {
-		err = router.RunTLS(conf.Addr, conf.SSLCertFile, conf.SSLKeyFile)
-	} else {
-		err = router.Run(conf.Addr)
+	srv := &http.Server{
+		Addr:    conf.Addr,
+		Handler: router,
 	}
-	return err
+
+	e := make(chan error, 1)
+
+	go func() {
+		if conf.HTTPS {
+			e <- srv.ListenAndServeTLS(conf.SSLCertFile, conf.SSLKeyFile)
+		} else {
+			e <- srv.ListenAndServe()
+		}
+	}()
+
+	select {
+	case err = <-e:
+		return err
+	case <-ctx.Done():
+		return srv.Shutdown(ctx)
+	}
 }

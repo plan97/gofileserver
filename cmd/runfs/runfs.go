@@ -24,13 +24,20 @@ func runfs(ctx context.Context) error {
 		Handler: router,
 	}
 
+	e := make(chan error, 1)
+
 	go func() {
-		<-ctx.Done()
-		srv.Shutdown(ctx)
+		if conf.HTTPS {
+			e <- srv.ListenAndServeTLS(conf.SSLCertFile, conf.SSLKeyFile)
+		} else {
+			e <- srv.ListenAndServe()
+		}
 	}()
 
-	if conf.HTTPS {
-		return srv.ListenAndServeTLS(conf.SSLCertFile, conf.SSLKeyFile)
+	select {
+	case err = <-e:
+		return err
+	case <-ctx.Done():
+		return srv.Shutdown(ctx)
 	}
-	return srv.ListenAndServe()
 }

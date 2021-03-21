@@ -1,3 +1,6 @@
+// Package config provides the necessary configurations for gofileserver.
+//
+// The configurations can be retrieved from command line flags if needed.
 package config
 
 import (
@@ -8,7 +11,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Config contains the input for the fileserver.
+// Config for the fileserver.
 type Config struct {
 	// BaseDir to serve.
 	BaseDir string
@@ -16,7 +19,7 @@ type Config struct {
 	// Addr to listen.
 	Addr string
 
-	// HTTPS enable.
+	// HTTPS flag to enable HTTPS using SSLCertFile and SSLKeyFile.
 	HTTPS bool
 
 	// SSLCertFile refers to the location of SSL certificate.
@@ -25,11 +28,11 @@ type Config struct {
 	// SSLKeyFile refers to the location of SSL key.
 	SSLKeyFile string
 
-	// AllowCORS enable.
+	// AllowCORS flag to allow requests from all origin.
 	AllowCors bool
 }
 
-// Fetch configuration from flags.
+// Fetch configuration from command line flags.
 func (conf *Config) Fetch() (err error) {
 	config := viper.New()
 

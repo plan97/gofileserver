@@ -1,3 +1,7 @@
+// Package gofileserver provides REST API's and web UI
+// for accessing files in the system.
+//
+// The server can be configured during setup.
 package gofileserver
 
 import (

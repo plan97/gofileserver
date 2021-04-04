@@ -27,6 +27,8 @@ func runfs(ctx context.Context) error {
 	e := make(chan error, 1)
 
 	go func() {
+		defer close(e)
+
 		if conf.HTTPS {
 			e <- srv.ListenAndServeTLS(conf.SSLCertFile, conf.SSLKeyFile)
 		} else {
